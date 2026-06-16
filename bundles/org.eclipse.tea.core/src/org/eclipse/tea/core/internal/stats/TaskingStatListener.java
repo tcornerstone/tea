@@ -24,6 +24,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -147,6 +148,9 @@ public class TaskingStatListener implements TaskingLifeCycleListener {
 		dto.processors = osb.getAvailableProcessors();
 		dto.os = osb.getName() + ":" + osb.getArch() + ":" + osb.getVersion();
 		dto.loadavg = osb.getSystemLoadAverage();
+
+		System.out.println("Available methods are: "
+				+ Arrays.stream(osb.getClass().getDeclaredMethods()).map(Method::getName).toList());
 
 		// infos that are not on the public API
 		dto.totalMem = tryGet(osb, "getTotalMemorySize", 0L);
